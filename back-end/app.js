@@ -1,13 +1,13 @@
-var express = require('express');
-var https = require('https');
-var http = require('http');
-var fs = require('fs');
-require('dotenv').config()
+const express = require('express');
+const https = require('https');
+const fs = require('fs');
+const config=require('./config.js');
+
 
 // SSL Certifcate 
 var options = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH)
+  key: fs.readFileSync(config.ssl_key_path),
+  cert: fs.readFileSync(config.ssl_cert_path)
 };
 
 
@@ -15,5 +15,5 @@ var app = express();
 
 
 // Create HTTPS server 
-https.createServer(options, app).listen(process.env.PORT);
+https.createServer(options, app).listen(config.port);
 
