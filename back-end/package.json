@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Varagos/Softeng2020_2021#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

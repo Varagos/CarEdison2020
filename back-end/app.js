@@ -2,8 +2,9 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const config=require('./config.js');
-const mysql=require('mysql');
 const db=require('./db.js');
+const loginrouter=require('./routes/login.js');
+const { base_url } = require('./config.js');
 
 // SSL Certifcate 
 var options = {
@@ -22,6 +23,7 @@ db.connection.connect(function(err) {
 const app = express();
 
 
+app.use(config.base_url+'/login',loginrouter);
 // Create HTTPS server 
 https.createServer(options, app).listen(config.port);
 

@@ -10,5 +10,5 @@ const conn= mysql.createConnection({
 });
 
 module.exports={
-    connection: conn
+    connection: conn,
 };
