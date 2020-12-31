@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const db= require('../db.js');
 const config=require('../config.js');
 
+//decode parameters
 router.use(express.urlencoded({extended: true}));
 
 router.post('/',(req,res)=>{
@@ -23,11 +24,13 @@ router.post('/',(req,res)=>{
             return;
         }
         if(result.length){
+            //check for correct password
             if(bcrypt.compareSync(password,result[0].password)){
+                //create token
                 var token=jwt.sign({
                     username:result[0].username,
                     role:result[0].role},config.secret,{
-                        expiresIn:86400
+                        expiresIn:86400 //validate token for 24 hours
                     });
                 res.status(200).send({token: token});
                 return;
