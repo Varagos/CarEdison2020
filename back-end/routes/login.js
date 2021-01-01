@@ -11,7 +11,7 @@ router.use(express.urlencoded({extended: true}));
 router.post('/',(req,res)=>{
     var username=req.body.username;
     var password=req.body.password;
-    
+
     if(!username || !password){
         res.status(400).send("Username and password are required");
         return;
