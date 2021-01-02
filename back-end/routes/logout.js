@@ -8,8 +8,9 @@ router.use(user_auth);
 
 router.post('/',(req,res,next) => {
     var token=req.headers['x-observatory-auth'];
+    //logout==delete token from db
     var sql="UPDATE users SET token=null WHERE username=";
-    sql+=db.connection.escape(jwt.decode(token).usename);
+    sql+=db.connection.escape(jwt.decode(token).username);
     db.connection.query(sql,(err,result) => {
         if(err){
             console.log(err);

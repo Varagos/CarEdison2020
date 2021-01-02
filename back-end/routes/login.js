@@ -32,6 +32,7 @@ router.post('/',(req,res)=>{
                     role:result[0].role},config.secret,{
                         expiresIn:86400 //validate token for 24 hours
                     });
+                //store token in db
                 sql="UPDATE users SET token="+db.connection.escape(token);
                 sql+=" WHERE username="+db.connection.escape(username);
                 db.connection.query(sql,(err,result) => {
