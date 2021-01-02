@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const db=require('../db.js');
-const admin_auth=require('../middleware/admin_auth_middleware.js');
+const admin_auth=require('../middleware.js').admin_auth;
 
 router.use(admin_auth);
 

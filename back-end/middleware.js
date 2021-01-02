@@ -1,5 +1,5 @@
 const jwt=require('jsonwebtoken');
-const config=require('../config.js');
+const config=require('./config.js');
 
 module.exports={
     user_auth:((req,res,next) => {
