@@ -5,6 +5,7 @@ const config=require('./config.js');
 const db=require('./db.js');
 const loginrouter=require('./routes/login.js');
 const adminrouter=require('./routes/admin.js');
+const logoutrouter=require('./routes/logout');
 
 // SSL Certifcate 
 var options = {
@@ -24,6 +25,7 @@ const app = express();
 
 app.use(config.base_url+'/login',loginrouter);
 app.use(config.base_url+'/admin',adminrouter);
+app.use(config.base_url+'/logout',logoutrouter);
 // Create HTTPS server 
 https.createServer(options, app).listen(config.port);
 
