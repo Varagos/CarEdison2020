@@ -17,8 +17,12 @@ router.get('/:username',(req,res) => {
             res.status(500).send("Database error");
             return;
         }
-        res.status(200).send(result[0]);
-    
+        if(result.length){
+            res.status(200).send(result[0]);
+        }
+        else{
+            res.status(402).send("There is no user with this username");
+        }
     
     });
 
