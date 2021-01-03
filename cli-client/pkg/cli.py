@@ -6,6 +6,8 @@ from pathlib import Path
 
 #user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
 user_instance = formats.User(Path.home())
+format_help = 'Select between csv or json'
+apikey_help = 'Enter your api key'
 
 @click.group()
 def main():
@@ -16,7 +18,7 @@ def main():
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False),#will be lowercase regardless 
               required=True,
-              help='Select between csv or json.')
+              help='Select between csv or json')
 @click.option('--apikey', required=True,
               help='Enter your api key')
 def healthcheck(form, apikey):
@@ -28,7 +30,7 @@ def healthcheck(form, apikey):
 @main.command()
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help='Select between csv and json.')
+              help='Select between csv and json')
 @click.option('--apikey', required=True,
               help='Enter your api key')
 def resetsessions(form, apikey):
@@ -47,18 +49,28 @@ def resetsessions(form, apikey):
               help='Enter password')
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help='Select between csv and json.')
+              help='Select between csv and json')
 @click.option('--apikey', required=True,
               help='Enter your api key')
 def login(username, passw, form, apikey):
     """
     Allows user to log in to the database.
     """
-    click.echo('Login has run')
-    user_instance.login_post()
+    user_instance.login_post(username, passw)
     click.echo('Your are successfully logged in')
 
 
+@main.command()
+@click.option('--format', 'form',
+              type=click.Choice(['json','csv'], case_sensitive=False), required=True,
+              help=format_help)
+@click.option('--apikey', required=True, help=apikey_help)
+def logout(form, apikey):
+    """
+        Logs user out of the database.
+
+    """
+    click.echo('Successful logout')
 
 @main.command(name='SessionsPerPoint')
 @click.option('--point', required=True,

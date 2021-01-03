@@ -26,18 +26,22 @@ class User:
     def user_format(self, ctx, param, value):
         if not value.isalnum():
             raise click.BadParameter('needs to be in alphanumeric format')
+        return value
 
-    def login_post(self):
-        payload = {'username': 'admin', 'password': 'admin'}
+    def login_post(self, usern, passw):
+        payload = {'username': usern, 'password': passw}
         r = requests.post('https://localhost:8765/evcharge/api/login', data = payload, verify=False)
-        res = r.json()
         st_code = r.status_code
         if st_code in error_keys:
             raise click.ClickException(errors[st_code])
         #r.raise_for_status()
-        with open(self.home + '/softeng20bAPI.token', 'w+') as file:
-            file.write(res['token'])
-
+        res = r.json()
+        try:
+            with open(self.home + '/softeng20bAPI.token', 'w+') as file:
+                file.write(res['token'])
+        except IOError as e:
+            click.echo(f"I/O error({e.errno}): {e.strerror}")
+            raise click.Abort
 
 if __name__=='__main__':
     pass
