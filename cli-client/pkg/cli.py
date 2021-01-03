@@ -70,7 +70,9 @@ def logout(form, apikey):
         Logs user out of the database.
 
     """
+    user_instance.logout_post()
     click.echo('Successful logout')
+
 
 @main.command(name='SessionsPerPoint')
 @click.option('--point', required=True,

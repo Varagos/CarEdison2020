@@ -29,8 +29,12 @@ class User:
         return value
 
     def login_post(self, usern, passw):
-        payload = {'username': usern, 'password': passw}
-        r = requests.post('https://localhost:8765/evcharge/api/login', data = payload, verify=False)
+        url = 'https://localhost:8765/evcharge/api/login'
+        payload = {
+            'username': usern,
+            'password': passw
+        }
+        r = requests.post(url, data = payload, verify=False)
         st_code = r.status_code
         if st_code in error_keys:
             raise click.ClickException(errors[st_code])
@@ -42,6 +46,29 @@ class User:
         except IOError as e:
             click.echo(f"I/O error({e.errno}): {e.strerror}")
             raise click.Abort
+
+    def logout_post(self):
+        url = 'https://localhost:8765/evcharge/api/logout'
+        try:
+            with open(self.home + '/softeng20bAPI.token', 'r') as file:
+                token = file.readline()
+                headers = {
+                    'X-OBSERVATORY-AUTH': token
+                }
+                r = requests.post(url, headers = headers, verify=False)
+                st_code = r.status_code
+                if st_code in error_keys:
+                    raise click.ClickException(errors[st_code])
+        except IOError as e:
+            click.echo('Not currently logged in')
+            raise click.Abort
+        os.remove(self.home + '/softeng20bAPI.token')
+
+
+
+
+
+
 
 if __name__=='__main__':
     pass
