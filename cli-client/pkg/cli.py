@@ -1,4 +1,5 @@
 import click
+from pkg import formats
 #isalnum() for username
 
 @click.group()
@@ -35,6 +36,7 @@ def resetsessions(form, apikey):
 
 @main.command()
 @click.option('--username', required=True, prompt=True,
+              callback=formats.user_format,
               help='Enter username')
 @click.option('--passw', required=True, prompt=True, hide_input=True,
               help='Enter password')
@@ -47,7 +49,7 @@ def login(username, passw, form, apikey):
     """
     Allows user to log in to the database.
     """
-    pass
+    click.echo('Login has run')
 
 
 
