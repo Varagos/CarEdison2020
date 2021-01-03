@@ -1,9 +1,11 @@
 import click
 from pkg import formats
+from os.path import pardir, abspath, join
+#from pathlib import Path
 
 
-
-user_instance = formats.User()
+user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
+#user_instance = formats.User(Path.home())
 
 @click.group()
 def main():
@@ -53,6 +55,7 @@ def login(username, passw, form, apikey):
     Allows user to log in to the database.
     """
     click.echo('Login has run')
+    user_instance.login_post()
 
 
 
