@@ -56,6 +56,7 @@ def login(username, passw, form, apikey):
     """
     click.echo('Login has run')
     user_instance.login_post()
+    click.echo('Your are successfully logged in')
 
 
 
