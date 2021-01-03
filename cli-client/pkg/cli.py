@@ -1,6 +1,9 @@
 import click
 from pkg import formats
-#isalnum() for username
+
+
+
+user_instance = formats.User()
 
 @click.group()
 def main():
@@ -36,7 +39,7 @@ def resetsessions(form, apikey):
 
 @main.command()
 @click.option('--username', required=True, prompt=True,
-              callback=formats.user_format,
+              callback=user_instance.user_format,
               help='Enter username')
 @click.option('--passw', required=True, prompt=True, hide_input=True,
               help='Enter password')
