@@ -24,5 +24,7 @@ const app = express();
 
 app.use(config.base_url+'/login',loginrouter);
 // Create HTTPS server 
-https.createServer(options, app).listen(config.port);
+https.createServer(options, app).listen(config.port, function() {
+      console.log("Server is running on port " + config.port);
+});
 
