@@ -1,11 +1,11 @@
 import click
 from pkg import formats
-from os.path import pardir, abspath, join
-#from pathlib import Path
+#from os.path import pardir, abspath, join
+from pathlib import Path
 
 
-user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
-#user_instance = formats.User(Path.home())
+#user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
+user_instance = formats.User(Path.home())
 
 @click.group()
 def main():
