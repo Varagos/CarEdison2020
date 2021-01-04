@@ -1,6 +1,13 @@
 certifi==2020.12.5
+cffi==1.14.4
 chardet==4.0.0
+-e git+https://github.com/Varagos/Softeng2020_2021.git@130b9084bfa0997e0d0ce023452dd62963ac15fb#egg=cli_tool&subdirectory=cli-client
 click==7.1.2
+click-option-group==0.5.2
+cryptography==3.3.1
 idna==2.10
+pycparser==2.20
+pyOpenSSL==20.0.1
 requests==2.25.1
+six==1.15.0
 urllib3==1.26.2
