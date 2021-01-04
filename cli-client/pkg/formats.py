@@ -33,6 +33,13 @@ class User:
             raise click.BadParameter('needs to be in alphanumeric format')
         return value
 
+    def password_format(self, ctx, param, value):
+        if value is None:
+            return
+        elif ' ' in value:
+            raise click.BadParameter('cannot contain spaces')
+        return value
+
     def login_post(self, usern, passw):
         url = 'https://localhost:8765/evcharge/api/login'
         payload = {
