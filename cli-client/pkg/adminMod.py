@@ -33,6 +33,7 @@ class Admin:
             self.usermod_post()
         elif self.params['users'] is not None:
             click.echo('--Users inserted')
+            self.users_get()
         elif self.params['sessionsupd']:
             click.echo('--sessionsupd inserted')
         elif self.params['healthcheck']:
@@ -57,17 +58,21 @@ class Admin:
 
 
     def users_get(self):
-        username = self.params['username']
+        username = self.params['users']
         url = f'{self.base_url}/users/{username}'
         headers = {
-            'X-OBSERVATORY-AUTH': token
+            'X-OBSERVATORY-AUTH': self.token
         }
-        r = requests.post(url, headers = headers, verify=False)
+        r = requests.get(url, headers = headers, verify=False)
         st_code = r.status_code
         if st_code in error_keys:
             raise click.ClickException(errors[st_code])
         else:
-            click.echo(r.text)
+            res = r.json()
+            click.echo(res['username'])
+            #click echo apikey
+
+
 
 
 
