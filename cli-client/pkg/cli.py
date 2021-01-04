@@ -3,6 +3,7 @@ from pkg import formats
 #from os.path import pardir, abspath, join
 from pathlib import Path
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup, RequiredAllOptionGroup,AllOptionGroup
+from pkg import adminMod
 
 
 #user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
@@ -127,6 +128,6 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
 @click.option('--healthcheck', is_flag=True)
 @click.option('--resetsessions', is_flag=True)
 def admin(**params):
-    print(params)
-    pass
+    admin_instance = adminMod.Admin(params, Path.home())
+    admin_instance.resolve_state()
 
