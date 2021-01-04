@@ -3,6 +3,7 @@ import os
 import requests
 from urllib3 import disable_warnings, exceptions
 import json
+from pygments import highlight, lexers, formatters
 
 
 disable_warnings(exceptions.InsecureRequestWarning)
@@ -74,7 +75,10 @@ class User:
         st_code = r.status_code
         if st_code in error_keys:
             raise click.ClickException(errors[st_code])
-        click.echo(json.dumps(r.json(), indent=4))
+
+        formatted_json = json.dumps(r.json(), indent=4)
+        colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
+        click.echo(colorful_json)
 
 
     def get_token(self):
