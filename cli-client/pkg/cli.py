@@ -93,7 +93,9 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
     Shows a list describing charging events data
     for a specific Point during a time period.
     """
-    pass
+    user_instance.sessions_point_get(point,datefrom,dateto,form)
+
+
 
 @main.command('Admin')
 @optgroup.group('Main parameter',cls=RequiredMutuallyExclusiveOptionGroup,
