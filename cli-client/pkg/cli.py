@@ -21,9 +21,9 @@ def main():
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False),#will be lowercase regardless 
               required=True,
-              help='Select between csv or json')
+              help=format_help)
 @click.option('--apikey', required=True,
-              help='Enter your api key')
+              help=apikey_help)
 def healthcheck(form, apikey):
     """Confirm user and database connectivity."""
     click.echo(form)
@@ -33,9 +33,9 @@ def healthcheck(form, apikey):
 @main.command()
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help='Select between csv and json')
+              help=format_help)
 @click.option('--apikey', required=True,
-              help='Enter your api key')
+              help=apikey_help)
 def resetsessions(form, apikey):
     """
     Delete all data charging events.
@@ -51,12 +51,7 @@ def resetsessions(form, apikey):
 @click.option('--passw', required=True, prompt='Enter password', hide_input=True,
               callback=user_instance.password_format,
               help='Enter password')
-@click.option('--format','form',
-              type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help='Select between csv and json')
-@click.option('--apikey', required=True,
-              help='Enter your api key')
-def login(username, passw, form, apikey):
+def login(username, passw):
     """
     Allows user to log in to the database.
     """
@@ -65,11 +60,7 @@ def login(username, passw, form, apikey):
 
 
 @main.command()
-@click.option('--format', 'form',
-              type=click.Choice(['json','csv'], case_sensitive=False), required=True,
-              help=format_help)
-@click.option('--apikey', required=True, help=apikey_help)
-def logout(form, apikey):
+def logout():
     """
         Logs user out of the database.
 
@@ -87,14 +78,79 @@ def logout(form, apikey):
               help='Ending date, DATE_FORMAT=YYYYMMDD')
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help='Select between csv and json')
-@click.option('--apikey', required=True, help='Enter your api key')
+              help=format_help)
+@click.option('--apikey', required=True, help=apikey_help)
 def SessionsPerPoint(point, datefrom, dateto, form, apikey):
     """
     Shows a list describing charging events data
     for a specific Point during a time period.
     """
-    user_instance.sessions_point_get(point,datefrom,dateto,form)
+    user_instance.sessions_point_get(point, datefrom, dateto, form)
+
+
+
+
+
+@main.command(name='SessionsPerStation')
+@click.option('--station', required=True,
+              help='Unique ID of desired Station')
+@click.option('--datefrom', required=True,
+              help='Starting date, DATE_FORMAT=YYYYMMDD')
+@click.option('--dateto', required=True,
+              help='Ending date, DATE_FORMAT=YYYYMMDD')
+@click.option('--format','form',
+              type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
+              help=format_help)
+@click.option('--apikey', required=True, help=apikey_help)
+def SessionsPerPoint(station, datefrom, dateto, form, apikey):
+    """
+    Shows a list describing charging events data
+    for a specific Station during a time period.
+    """
+    user_instance.sessions_station_get(station, datefrom, dateto, form)
+
+
+
+@main.command(name='SessionsPerEv)
+@click.option('--ev', required=True,
+              help='Enter vehicle\'s of interest unique ID')
+@click.option('--datefrom', required=True,
+              help='Starting date, DATE_FORMAT=YYYYMMDD')
+@click.option('--dateto', required=True,
+              help='Ending date, DATE_FORMAT=YYYYMMDD')
+@click.option('--format','form',
+              type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
+              help=format_help)
+@click.option('--apikey', required=True, help=apikey_help)
+def SessionsPerPoint(ev, datefrom, dateto, form, apikey):
+    """
+    Shows a list describing charging events data
+    for a specific Vehicle during a time period.
+    """
+    pass
+
+
+
+
+
+@main.command(name='SessionsPerProvider')
+@click.option('--provider', required=True,
+              help='Unique ID of intended Provider')
+@click.option('--datefrom', required=True,
+              help='Starting date, DATE_FORMAT=YYYYMMDD')
+@click.option('--dateto', required=True,
+              help='Ending date, DATE_FORMAT=YYYYMMDD')
+@click.option('--format','form',
+              type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
+              help=format_help)
+@click.option('--apikey', required=True, help=apikey_help)
+def SessionsPerPoint(provider, datefrom, dateto, form, apikey):
+    """
+    Shows a list describing charging events data
+    for a specific Provider during a time period.
+    """
+    pass
+
 
 
 

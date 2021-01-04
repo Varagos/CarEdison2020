@@ -74,6 +74,14 @@ class User:
 
     def sessions_point_get(self,pointId,dateFrom, dateTo,form):
         url =f'{self.base_url}/SessionsPerPoint/{pointId}/{dateFrom}/{dateTo}?format={form}'
+        self.useCase_get(url)
+
+    def sessions_station_get(self,stationId, dateFrom, dateTo, form):
+        url = '{self.base_url}/SessionsPerStation/{stationId}/{dateFrom}/{dateTo}?format={form}'
+        self.useCase_get(url)
+
+
+    def useCase_get(self,url):
         token = self.get_token()
         headers = {
             'X-OBSERVATORY-AUTH': token
