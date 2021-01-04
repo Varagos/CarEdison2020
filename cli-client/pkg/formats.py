@@ -24,6 +24,8 @@ class User:
         self.home = os.path.abspath(home or '.')
 
     def user_format(self, ctx, param, value):
+        if value is None:
+            return
         if not value.isalnum():
             raise click.BadParameter('needs to be in alphanumeric format')
         return value

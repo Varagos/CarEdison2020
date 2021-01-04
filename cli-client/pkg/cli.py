@@ -100,27 +100,32 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
 @optgroup.option('--usermod', is_flag=True,
                  help='Create new user/change password')
 @optgroup.option('--users',
+                 callback=user_instance.user_format,
                  help='Display user state')
-@optgroup.option('--sessionsupd',
+@optgroup.option('--sessionsupd', is_flag=True,
                  help='Upload charging data events')
-@optgroup.option('--healthcheck',
+@optgroup.option('--healthcheck', is_flag=True,
                  help='Confirm user and database connectivity')
-@optgroup.option('--resetsessions',
+@optgroup.option('--resetsessions', is_flag=True,
                  help='Delete charging data events')
-@optgroup.group('usermod',cls=AllOptionGroup,
+@optgroup.group('usermod',cls=AllOptionGroup,           #usermod
            help='Returns new API key on success')
 @optgroup.option('--usermod', is_flag=True)
-@optgroup.option('--username')
+@optgroup.option('--username',
+                 callback=user_instance.user_format)
 @optgroup.option('--passw')
-@optgroup.group('users',cls=AllOptionGroup,
+@optgroup.group('users',cls=AllOptionGroup,             #users
                 help='Display user state')
-@optgroup.option('--users')
-@optgroup.group('sessionsUpd',cls=AllOptionGroup,
+@optgroup.option('--users',
+                callback=user_instance.user_format)
+@optgroup.group('sessionsUpd',cls=AllOptionGroup,       #sessionsUpd
                 help='Upload data charging events from a csv file')
 @optgroup.option('--sessionsupd',is_flag=True)
-@optgroup.option('--source')
-@click.option('--healthcheck')
-@click.option('--resetsessions')
+@optgroup.option('--source', type=click.Path(exists=True, file_okay=True,
+                                             readable=True,resolve_path=True),
+                 help='Input file')
+@click.option('--healthcheck', is_flag=True)
+@click.option('--resetsessions', is_flag=True)
 def admin(**params):
     print(params)
     pass
