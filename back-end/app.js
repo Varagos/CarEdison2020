@@ -11,6 +11,7 @@ const admin_usermod_router=require('./routes/admin_usermod.js');
 const admin_users_router=require('./routes/admin_users.js');
 
 const sessions_point_router=require('./routes/sessions_point.js');
+const sessions_station_router=require('./routes/sessions_station.js');
 
 // SSL Certifcate 
 var options = {
@@ -36,6 +37,8 @@ app.use(config.base_url+'/admin/usermod',admin_usermod_router);
 app.use(config.base_url+'/admin/users',admin_users_router);
 
 app.use(config.base_url+'/SessionsPerPoint',sessions_point_router);
+app.use(config.base_url+'/SessionsPerStation',sessions_station_router);
+
 // Create HTTPS server 
 https.createServer(options, app).listen(config.port, function() {
       console.log("Server is running on port " + config.port);
