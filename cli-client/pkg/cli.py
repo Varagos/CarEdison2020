@@ -2,12 +2,14 @@ import click
 from pkg import formats
 #from os.path import pardir, abspath, join
 from pathlib import Path
+from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup, RequiredAllOptionGroup,AllOptionGroup
 
 
 #user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
 user_instance = formats.User(Path.home())
 format_help = 'Select between csv or json'
 apikey_help = 'Enter your api key'
+
 
 @click.group()
 def main():
@@ -45,7 +47,7 @@ def resetsessions(form, apikey):
 @click.option('--username', required=True, prompt=True,
               callback=user_instance.user_format,
               help='Enter username')
-@click.option('--passw', required=True, prompt=True, hide_input=True,
+@click.option('--passw', required=True, prompt='Enter password', hide_input=True,
               help='Enter password')
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
@@ -91,3 +93,35 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
     for a specific Point during a time period.
     """
     pass
+
+@main.command('Admin')
+@optgroup.group('Main parameter',cls=RequiredMutuallyExclusiveOptionGroup,
+                help='Only one option from this group can be set\n')
+@optgroup.option('--usermod', is_flag=True,
+                 help='Create new user/change password')
+@optgroup.option('--users',
+                 help='Display user state')
+@optgroup.option('--sessionsupd',
+                 help='Upload charging data events')
+@optgroup.option('--healthcheck',
+                 help='Confirm user and database connectivity')
+@optgroup.option('--resetsessions',
+                 help='Delete charging data events')
+@optgroup.group('usermod',cls=AllOptionGroup,
+           help='Returns new API key on success')
+@optgroup.option('--usermod', is_flag=True)
+@optgroup.option('--username')
+@optgroup.option('--passw')
+@optgroup.group('users',cls=AllOptionGroup,
+                help='Display user state')
+@optgroup.option('--users')
+@optgroup.group('sessionsUpd',cls=AllOptionGroup,
+                help='Upload data charging events from a csv file')
+@optgroup.option('--sessionsupd',is_flag=True)
+@optgroup.option('--source')
+@click.option('--healthcheck')
+@click.option('--resetsessions')
+def admin(**params):
+    print(params)
+    pass
+
