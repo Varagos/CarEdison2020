@@ -1,3 +1,9 @@
-#Directory cli-client
+## Directory cli-client   
 
-This directory contains the CLI code.
+---   
+
+Use of virtual_env is recommended.
+
+- Install dependecies from requirements.txt
+- Execute install.sh  
+
