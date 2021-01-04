@@ -25,8 +25,8 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
     sql+="JOIN payment_types USING (payment_id) ";
     sql+="JOIN vehicles USING (vehicle_id) ";
     sql+="WHERE point_id="+db.connection.escape(pointID);
-    sql+=" AND (DATE(start) BETWEEN "
-    sql+=db.connection.escape(date_from)+" AND "
+    sql+=" AND (DATE(start) BETWEEN ";
+    sql+=db.connection.escape(date_from)+" AND ";
     sql+=db.connection.escape(date_to)+")";
     sql+=" ORDER BY start ASC, finish ASC";
     
@@ -43,6 +43,8 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
             "Point":pointID,
             "PointOperator":result[0].operator_title,
             "RequestTimestamp":req_time,
+            "PeriodFrom":date_from,
+            "PeriodTo":date_to,
             "NumberOfChargingSessions":result.length
         };
         sessions_list=[];
@@ -63,7 +65,6 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
 
         });
         res_to_send['ChargingSessionsList']=sessions_list;
-        console.log(result);
         res.status(200).send(res_to_send);
 
 
