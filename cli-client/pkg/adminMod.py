@@ -18,6 +18,14 @@ class Admin:
         self.home = os.path.abspath(home or '.')
         self.params = param
         self.base_url = 'https://localhost:8765/evcharge/api/admin'
+        try:
+            with open(self.home + '/softeng20bAPI.token', 'r') as file:
+                token = file.readline()
+        except IOError as e:
+            click.echo('Not currently logged in')
+            raise click.Abort
+        self.token = token
+
 
     def resolve_state(self):
         if self.params['usermod']:
@@ -37,12 +45,20 @@ class Admin:
         username = self.params['username']
         password = self.params['passw']
         url = f'{self.base_url}/usermod/{username}/{password}'
-        try:
-            with open(self.home + '/softeng20bAPI.token', 'r') as file:
-                token = file.readline()
-        except IOError as e:
-            click.echo('Not currently logged in')
-            raise click.Abort
+        headers = {
+            'X-OBSERVATORY-AUTH': self.token
+        }
+        r = requests.post(url, headers = headers, verify=False)
+        st_code = r.status_code
+        if st_code in error_keys:
+            raise click.ClickException(errors[st_code])
+        else:
+            click.echo(r.text)
+
+
+    def users_get(self):
+        username = self.params['username']
+        url = f'{self.base_url}/users/{username}'
         headers = {
             'X-OBSERVATORY-AUTH': token
         }
@@ -52,7 +68,6 @@ class Admin:
             raise click.ClickException(errors[st_code])
         else:
             click.echo(r.text)
-
 
 
 
