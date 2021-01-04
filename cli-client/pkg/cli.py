@@ -49,6 +49,7 @@ def resetsessions(form, apikey):
               callback=user_instance.user_format,
               help='Enter username')
 @click.option('--passw', required=True, prompt='Enter password', hide_input=True,
+              callback=user_instance.password_format,
               help='Enter password')
 @click.option('--format','form',
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
@@ -93,7 +94,9 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
     Shows a list describing charging events data
     for a specific Point during a time period.
     """
-    pass
+    user_instance.sessions_point_get(point,datefrom,dateto,form)
+
+
 
 @main.command('Admin')
 @optgroup.group('Main parameter',cls=RequiredMutuallyExclusiveOptionGroup,
@@ -114,7 +117,8 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
 @optgroup.option('--usermod', is_flag=True)
 @optgroup.option('--username',
                  callback=user_instance.user_format)
-@optgroup.option('--passw')
+@optgroup.option('--passw',
+                 callback=user_instance.password_format)
 @optgroup.group('users',cls=AllOptionGroup,             #users
                 help='Display user state')
 @optgroup.option('--users',
