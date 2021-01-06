@@ -15,8 +15,9 @@ router.post('/:username/:password',(req,res)  => {
     var password=bcrypt.hashSync(req.params.password,8);
     
    
-    var sql="SELECT * FROM users WHERE username=";
-    sql+=db.connection.escape(username);
+    var sql="INSERT INTO users (username,password,role) VALUES (";
+    sql+=db.connection.escape(username)+",'"+password+"','user')";
+    sql+="ON DUPLICATE KEY UPDATE password='"+password+"'";
     
     db.connection.query(sql,(err,result) => {
         if(err){
@@ -25,27 +26,6 @@ router.post('/:username/:password',(req,res)  => {
             res.status(500).send("Database error");
             return;
         }
-        if(result.length){
-            //If user exists change his password
-            sql="UPDATE users SET password=";
-            sql+=db.connection.escape(password)
-            sql+=" WHERE username="+db.connection.escape(username);
-            
-        }
-        else{
-            //Else create a new user with user role
-            sql="INSERT INTO users (username,password,role) VALUES (";
-            sql+=db.connection.escape(username)+",";
-            sql+=db.connection.escape(password)+",'user')";
-        }
-        db.connection.query(sql,(err,result) => {
-            if(err){
-                console.log(err);
-                
-                res.status(500).send("Database error");
-                return;
-            }
-        });
     });
     res.sendStatus(200);
 });
