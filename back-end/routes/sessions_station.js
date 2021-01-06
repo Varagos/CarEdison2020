@@ -28,7 +28,7 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
             res.status(500).send("Database error");
             return;
         }
-        if(result.length==0){
+        if(result.length===0){
             res.status(402).send("No data for these parameters");
         }
         var energy_sum=0;

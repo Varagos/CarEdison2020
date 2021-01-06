@@ -20,7 +20,7 @@ module.exports={
                             res.status(500).send("Database error");
                             return;
                         }
-                        if(result[0].token==token){
+                        if(result[0].token===token){
                             next();
                         }
                         else{
