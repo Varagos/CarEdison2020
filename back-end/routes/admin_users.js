@@ -1,3 +1,4 @@
+//Endpoint which returns details about a user
 const express=require('express');
 const router=express.Router();
 const db=require('../db.js');

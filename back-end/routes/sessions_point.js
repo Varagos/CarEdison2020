@@ -1,3 +1,5 @@
+//Endpoint that returns information about 
+//charging sessions in one specific point
 const express=require('express');
 const router=express.Router();
 const auth=require('../middleware.js').user_auth;

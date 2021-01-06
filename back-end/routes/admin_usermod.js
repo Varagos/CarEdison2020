@@ -1,3 +1,6 @@
+//Endpoint hich modifies user's password or creates a new user if username 
+//in req.params doesn't already exist
+
 const express=require('express');
 const router=express.Router();
 const db=require('../db.js');
