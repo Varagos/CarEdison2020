@@ -18,13 +18,13 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
     var req_time=curr_date();
 
     var sql="SELECT station_id,operator_title,point_id,COUNT(*) as sessions";
-    sql+=",SUM(energy) as energy FROM sessions JOIN points USING (point_id)";
-    sql+=" JOIN stations USING (station_id) JOIN operators USING (operator_id)";
+    sql+=",SUM(energy) as energy FROM sessions_per_station";
     sql+=" WHERE station_id="+db.connection.escape(stationID);
     sql+=" AND (DATE(start) BETWEEN";
     sql+=db.connection.escape(date_from)+ " AND";
     sql+=db.connection.escape(date_to)+") ";
     sql+="GROUP BY point_id";
+    console.log(sql);
     db.connection.query(sql,(err,result)=>{
         if(err){
             console.log(err);
@@ -33,6 +33,7 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
         }
         if(result.length===0){
             res.status(402).send("No data for these parameters");
+            return
         }
         var energy_sum=0;
         var sessions=0;

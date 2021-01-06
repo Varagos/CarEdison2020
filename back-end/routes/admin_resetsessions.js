@@ -6,7 +6,6 @@ const router=express.Router();
 const db=require('../db.js');
 const config=require('../config.js');
 const bcrypt = require('bcryptjs');
-const { admin_auth } = require('../middleware.js');
 
 router.post('/',(req,res) => {
     var sql="DELETE FROM sessions";

@@ -21,6 +21,10 @@ module.exports={
                             res.status(500).send("Database error");
                             return;
                         }
+                        if(!result.length){
+                            res.status(401).send("User with this token does not exist anymore");
+                            return;
+                        }
                         if(result[0].token===token){
                             next();
                         }
