@@ -6,6 +6,7 @@ const curr_date=require('../helpers/curr_date.js');
 const format_in_dates=require('../helpers/format_in_dates');
 const date_format=require('../helpers/date_format.js');
 
+//This route is accessible from logged in users
 router.use(auth);
 
 router.get('/:stationID/:date_from/:date_to',(req,res) => {

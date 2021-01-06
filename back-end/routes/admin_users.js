@@ -3,6 +3,7 @@ const router=express.Router();
 const db=require('../db.js');
 const admin_auth=require('../middleware.js').admin_auth;
 
+//This route is accessible only from admins who are looged in
 router.use(admin_auth);
 
 router.get('/:username',(req,res) => {
