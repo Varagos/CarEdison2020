@@ -10,6 +10,8 @@ const logoutrouter=require('./routes/logout');
 const admin_usermod_router=require('./routes/admin_usermod.js');
 const admin_users_router=require('./routes/admin_users.js');
 const admin_healthcheck=require('./routes/admin_healthcheck.js');
+const admin_resetsessions=require('./routes/admin_resetsessions.js');
+
 const sessions_point_router=require('./routes/sessions_point.js');
 const sessions_station_router=require('./routes/sessions_station.js');
 
@@ -36,6 +38,7 @@ app.use(config.base_url+'/logout',logoutrouter);
 app.use(config.base_url+'/admin/usermod',admin_usermod_router);
 app.use(config.base_url+'/admin/users',admin_users_router);
 app.use(config.base_url+'/admin/healthcheck',admin_healthcheck);
+app.use(config.base_url+'/admin/resetsessions',admin_resetsessions);
 
 app.use(config.base_url+'/SessionsPerPoint',sessions_point_router);
 app.use(config.base_url+'/SessionsPerStation',sessions_station_router);
