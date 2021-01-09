@@ -15,6 +15,7 @@ const admin_resetsessions=require('./routes/admin_resetsessions.js');
 const sessions_point_router=require('./routes/sessions_point.js');
 const sessions_station_router=require('./routes/sessions_station.js');
 const sessions_vehicle_router=require('./routes/sessions_vehicle.js');
+const sessions_provider_router=require('./routes/sessions_provider.js');
 
 // SSL Certifcate 
 var options = {
@@ -44,6 +45,7 @@ app.use(config.base_url+'/admin/resetsessions',admin_resetsessions);
 app.use(config.base_url+'/SessionsPerPoint',sessions_point_router);
 app.use(config.base_url+'/SessionsPerStation',sessions_station_router);
 app.use(config.base_url+'/SessionsPerEV',sessions_vehicle_router);
+app.use(config.base_url+'/SessionsPerProvider',sessions_provider_router);
 
 // Create HTTPS server 
 https.createServer(options, app).listen(config.port, function() {

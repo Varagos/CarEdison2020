@@ -6,7 +6,6 @@ const auth=require('../middleware.js').user_auth;
 const db=require('../db.js');
 const curr_date=require('../helpers/curr_date.js');
 const format_in_dates=require('../helpers/format_in_dates');
-const date_format=require('../helpers/date_format.js');
 
 //This route is accessible from logged in users
 router.use(auth);
@@ -24,7 +23,7 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
     sql+=db.connection.escape(date_from)+ " AND";
     sql+=db.connection.escape(date_to)+") ";
     sql+="GROUP BY point_id";
-    console.log(sql);
+
     db.connection.query(sql,(err,result)=>{
         if(err){
             console.log(err);
