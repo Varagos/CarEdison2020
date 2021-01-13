@@ -3,6 +3,7 @@ const config=require('./config.js');
 const db=require('./db.js');
 
 module.exports={
+    //middlewrae used to check if the user is logged in
     user_auth:((req,res,next) => {
         //grab token from req.headers
         var token=req.headers['x-observatory-auth'];
@@ -20,7 +21,11 @@ module.exports={
                             res.status(500).send("Database error");
                             return;
                         }
-                        if(result[0].token==token){
+                        if(!result.length){
+                            res.status(401).send("User with this token does not exist anymore");
+                            return;
+                        }
+                        if(result[0].token===token){
                             next();
                         }
                         else{
@@ -37,6 +42,7 @@ module.exports={
         }
         
     }),
+    //middleware to check if the user is logged in and he is an admin
     admin_auth:((req,res,next) => {
         //grab token from req.headers
         var token=req.headers['x-observatory-auth'];
@@ -61,7 +67,7 @@ module.exports={
                         
                     });
                     //only this part is added to the
-                    //user_auth function
+                    //above user_auth function
                     if(decoded.role!='admin'){
                         res.status(401).send("Token does not belong to an admin");
                         return;

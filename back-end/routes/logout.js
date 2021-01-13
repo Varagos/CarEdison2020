@@ -4,6 +4,7 @@ const db=require('../db.js');
 const user_auth=require('../middleware.js').user_auth;
 const jwt=require('jsonwebtoken');
 
+//This route is accesible from logged in users
 router.use(user_auth);
 
 router.post('/',(req,res,next) => {
