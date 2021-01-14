@@ -77,11 +77,19 @@ class User:
         self.useCase_get(url)
 
     def sessions_station_get(self,stationId, dateFrom, dateTo, form):
-        url = '{self.base_url}/SessionsPerStation/{stationId}/{dateFrom}/{dateTo}?format={form}'
+        url = f'{self.base_url}/SessionsPerStation/{stationId}/{dateFrom}/{dateTo}?format={form}'
         self.useCase_get(url)
 
+    def sessions_ev_get(self, evId, dateFrom, dateTo, form):
+        url = f'{self.base_url}/SessionsPerEV/{evId}/{dateFrom}/{dateTo}?format={form}'
+        self.useCase_get(url)
+
+    def sessions_provider_get(self, providerId, dateFrom, dateTo, form):
+        url = f'{self.base_url}/SessionsPerProvider/{stationId}/{dateFrom}/{dateTo}?format={form}'
+        self.useCase_get(url)
 
     def useCase_get(self,url):
+        print(self.apikey)
         token = self.get_token()
         headers = {
             'X-OBSERVATORY-AUTH': token

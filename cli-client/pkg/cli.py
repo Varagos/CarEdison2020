@@ -18,12 +18,6 @@ def main():
 
 
 @main.command()
-@click.option('--format','form',
-              type=click.Choice(['json', 'csv'], case_sensitive=False),#will be lowercase regardless 
-              required=True,
-              help=format_help)
-@click.option('--apikey', required=True,
-              help=apikey_help)
 def healthcheck(form, apikey):
     """Confirm user and database connectivity."""
     click.echo(form)
@@ -31,11 +25,6 @@ def healthcheck(form, apikey):
 
 
 @main.command()
-@click.option('--format','form',
-              type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
-              help=format_help)
-@click.option('--apikey', required=True,
-              help=apikey_help)
 def resetsessions(form, apikey):
     """
     Delete all data charging events.
@@ -80,11 +69,12 @@ def logout():
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
               help=format_help)
 @click.option('--apikey', required=True, help=apikey_help)
-def SessionsPerPoint(point, datefrom, dateto, form, apikey):
+def func(point, datefrom, dateto, form, apikey):
     """
     Shows a list describing charging events data
     for a specific Point during a time period.
     """
+    setattr(user_instance, 'apikey', apikey)
     user_instance.sessions_point_get(point, datefrom, dateto, form)
 
 
@@ -102,16 +92,17 @@ def SessionsPerPoint(point, datefrom, dateto, form, apikey):
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
               help=format_help)
 @click.option('--apikey', required=True, help=apikey_help)
-def SessionsPerPoint(station, datefrom, dateto, form, apikey):
+def func(station, datefrom, dateto, form, apikey):
     """
     Shows a list describing charging events data
     for a specific Station during a time period.
     """
+    setattr(user_instance, 'apikey', apikey)
     user_instance.sessions_station_get(station, datefrom, dateto, form)
 
 
 
-@main.command(name='SessionsPerEv)
+@main.command(name='SessionsPerEV')
 @click.option('--ev', required=True,
               help='Enter vehicle\'s of interest unique ID')
 @click.option('--datefrom', required=True,
@@ -122,12 +113,13 @@ def SessionsPerPoint(station, datefrom, dateto, form, apikey):
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
               help=format_help)
 @click.option('--apikey', required=True, help=apikey_help)
-def SessionsPerPoint(ev, datefrom, dateto, form, apikey):
+def func(ev, datefrom, dateto, form, apikey):
     """
     Shows a list describing charging events data
     for a specific Vehicle during a time period.
     """
-    pass
+    setattr(user_instance, 'apikey', apikey)
+    user_instance.sessions_ev_get(ev, datefrom, dateto, form)
 
 
 
@@ -144,12 +136,13 @@ def SessionsPerPoint(ev, datefrom, dateto, form, apikey):
               type=click.Choice(['json', 'csv'], case_sensitive=False), required=True,
               help=format_help)
 @click.option('--apikey', required=True, help=apikey_help)
-def SessionsPerPoint(provider, datefrom, dateto, form, apikey):
+def func(provider, datefrom, dateto, form, apikey):
     """
     Shows a list describing charging events data
     for a specific Provider during a time period.
     """
-    pass
+    setattr(user_instance, 'apikey', apikey)
+    user_instance.sessions_provider_get(station, datefrom, dateto, form)
 
 
 
