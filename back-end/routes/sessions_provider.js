@@ -7,8 +7,9 @@ const db=require('../db.js');
 const curr_date=require('../helpers/curr_date.js');
 const format_in_dates=require('../helpers/format_in_dates');
 const date_format=require('../helpers/date_format.js');
+const json2csv=require('../helpers/j2on2csv.js');
 
-//This route is accessible from logged in users
+//This route is acc1essible from logged in users
 router.use(auth);
 
 router.get('/:providerID/:date_from/:date_to', (req,res)=>{
@@ -35,7 +36,6 @@ router.get('/:providerID/:date_from/:date_to', (req,res)=>{
         }
 
         var sessions_list=[]
-        console.log(result);
         result.forEach(session => {
             sessions_list.push({
                 "ProviderID":session.provider_id,
@@ -51,7 +51,13 @@ router.get('/:providerID/:date_from/:date_to', (req,res)=>{
                 "TotalCost":(session.energy*session.cost).toFixed(6)
             })
         })
-        res.status(200).send(sessions_list);
+        if(req.query.format==='csv'){
+            csv=json2csv(sessions_list);
+            res.status(200).send(csv);
+        }
+        else{
+            res.status(200).send(sessions_list);
+        }
     });
 });
 

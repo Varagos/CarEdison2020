@@ -6,13 +6,14 @@ const router=express.Router();
 const auth=require('../middleware.js').user_auth;
 const db=require('../db.js');
 const curr_date=require('../helpers/curr_date.js');
-const format_in_dates=require('../helpers/format_in_dates');
+const format_in_dates=require('../helpers/format_in_dates.js');
 const date_format=require('../helpers/date_format.js');
-
+const json2csv=require('../helpers/j2on2csv.js');
 //This route is accessible from logged in users
 router.use(auth);
 
 router.get('/:vehicleID/:date_from/:date_to',(req,res) => {
+   
     var vehicleID=req.params.vehicleID;
     var date_from=format_in_dates.from(req.params.date_from);
     var date_to=format_in_dates.to(req.params.date_to);
@@ -34,7 +35,6 @@ router.get('/:vehicleID/:date_from/:date_to',(req,res) => {
             res.status(402).send("No data for these parameters");
             return
         }
-        console.log(result);
         var points_set=new Set();
         var total_energy=0;
         var sessions_list=[];
@@ -56,7 +56,7 @@ router.get('/:vehicleID/:date_from/:date_to',(req,res) => {
             })
 
         })
-        res.status(200).send({
+        var json={
             "VehicleID":result[0].vehicle_id,
             "RequestTimestamp":req_time,
             "PeriodFrom":date_from,
@@ -65,7 +65,15 @@ router.get('/:vehicleID/:date_from/:date_to',(req,res) => {
             "NumberOfVisitedPoints":points_set.size,
             "NumberOfVehicleChargingSessions":result.length,
             "VehicleChargingSesionsList":sessions_list
-        });
+        };
+        
+        if(req.query.format==='csv'){
+            csv=json2csv(json);
+            res.status(200).send(csv);
+        }
+        else{
+            res.status(200).send(json);
+        }
     });
 });
 

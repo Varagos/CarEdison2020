@@ -6,6 +6,7 @@ const auth=require('../middleware.js').user_auth;
 const db=require('../db.js');
 const curr_date=require('../helpers/curr_date.js');
 const format_in_dates=require('../helpers/format_in_dates');
+const json2csv=require('../helpers/j2on2csv.js');
 
 //This route is accessible from logged in users
 router.use(auth);
@@ -48,7 +49,7 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
 
         })
         
-        var res_to_send={
+        var json={
             "StationID":stationID,
             "Operator":result[0].operator_title,
             "RequestTimeStamp":req_time,
@@ -60,7 +61,13 @@ router.get('/:stationID/:date_from/:date_to',(req,res) => {
             "SessionsSummaryList":sessions_list
 
         }
-        res.status(200).send(res_to_send);
+        if(req.query.format==='csv'){
+            csv=json2csv(json);
+            res.status(200).send(csv);
+        }
+        else{
+            res.status(200).send(json);
+        }
     });
 });
 

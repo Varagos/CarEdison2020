@@ -7,6 +7,7 @@ const db=require('../db.js');
 const curr_date=require('../helpers/curr_date.js');
 const format_in_dates=require('../helpers/format_in_dates');
 const date_format=require('../helpers/date_format.js');
+const json2csv=require('../helpers/j2on2csv.js');
 
 //This route is accessible from logged in users
 router.use(auth);
@@ -33,7 +34,7 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
             res.status(402).send("No data for these parameters");
             return;
         }
-        var res_to_send={
+        var json={
             "Point":pointID,
             "PointOperator":result[0].operator_title,
             "RequestTimestamp":req_time,
@@ -58,8 +59,14 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
             i++;
 
         });
-        res_to_send['ChargingSessionsList']=sessions_list;
-        res.status(200).send(res_to_send);
+        json['ChargingSessionsList']=sessions_list;
+        if(req.query.format==='csv'){
+            csv=json2csv(json);
+            res.status(200).send(csv);
+        }
+        else{
+            res.status(200).send(json);
+        }
 
 
     });
