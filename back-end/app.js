@@ -42,7 +42,7 @@ app.use(config.base_url+'/admin/usermod',admin_usermod_router);
 app.use(config.base_url+'/admin/users',admin_users_router);
 app.use(config.base_url+'/admin/healthcheck',admin_healthcheck);
 app.use(config.base_url+'/admin/resetsessions',admin_resetsessions);
-app.use(config.base_url+'/admin/sessionsupd',admin_sessionsupd);
+app.use(config.base_url+'/admin/system/sessionsupd',admin_sessionsupd);
 
 app.use(config.base_url+'/SessionsPerPoint',sessions_point_router);
 app.use(config.base_url+'/SessionsPerStation',sessions_station_router);
