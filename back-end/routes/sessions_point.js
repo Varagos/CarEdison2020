@@ -53,7 +53,7 @@ router.get('/:pointID/:date_from/:date_to',(req,res) => {
                 "Protocol":session.charger_title,
                 "EnergyDelivered":session.energy,
                 "Payment":session.payment_name,
-                "VehicleType":session.type
+                "VehicleType":session.vehicle_type
             };
             sessions_list.push(sess);
             i++;
