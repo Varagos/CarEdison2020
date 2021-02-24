@@ -15,9 +15,9 @@ errors = {
 error_keys = {400, 401, 402}
 
 class Admin:
-    def __init__(self, param, home=None):
+    def __init__(self, params, home=None):
         self.home = os.path.abspath(home or '.')
-        self.params = param
+        self.params = params
         self.base_url = 'https://localhost:8765/evcharge/api/admin'
         try:
             with open(self.home + '/softeng20bAPI.token', 'r') as file:

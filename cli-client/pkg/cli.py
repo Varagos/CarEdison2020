@@ -3,7 +3,6 @@ from pkg import formats
 #from os.path import pardir, abspath, join
 from pathlib import Path
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup, RequiredAllOptionGroup,AllOptionGroup
-from pkg import adminMod
 
 
 #user_instance = formats.User(abspath(join(__file__, pardir, pardir, pardir)))
@@ -18,10 +17,9 @@ def main():
 
 
 @main.command()
-def healthcheck(form, apikey):
+def healthcheck():
     """Confirm user and database connectivity."""
-    click.echo(form)
-    pass
+    user_instance.healthcheck()
 
 
 @main.command()
@@ -142,7 +140,7 @@ def func(provider, datefrom, dateto, form, apikey):
     for a specific Provider during a time period.
     """
     setattr(user_instance, 'apikey', apikey)
-    user_instance.sessions_provider_get(station, datefrom, dateto, form)
+    user_instance.sessions_provider_get(provider, datefrom, dateto, form)
 
 
 
@@ -181,6 +179,6 @@ def func(provider, datefrom, dateto, form, apikey):
 @click.option('--healthcheck', is_flag=True)
 @click.option('--resetsessions', is_flag=True)
 def admin(**params):
-    admin_instance = adminMod.Admin(params, Path.home())
+    admin_instance = formats.Admin(params, Path.home())
     admin_instance.resolve_state()
 
