@@ -7,6 +7,8 @@ from pygments import highlight, lexers, formatters
 from io import StringIO
 from csv import reader
 import pandas
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
 
 
 disable_warnings(exceptions.InsecureRequestWarning)
@@ -51,6 +53,16 @@ class User:
         #print(url)
         self.useCase_get(url)
 
+
+    def resetsessions(self):
+        url = f"{self.base_url}/admin/resetsessions"
+        res = requests.post(url, verify = False)
+        st_code = res.status_code
+        if st_code in error_keys:
+            raise click.ClickException(errors[st_code])
+        formatted_json = json.dumps(res.json(), indent=4)
+        colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
+        click.echo(colorful_json)
 
     def login_post(self, usern, passw):
         url = 'https://localhost:8765/evcharge/api/login'
@@ -210,24 +222,27 @@ class Admin(User):
     def sessionsupd_post(self):
         input_file = self.params['source']
         click.echo(input_file)
-        click.echo(self.is_csv(input_file))
+        #click.echo(self.is_csv(input_file))
         url = f'{self.base_url}/admin/system/sessionsupd'
+        multipart_data = MultipartEncoder(
+            fields={
+                'file': ('file.csv', open(input_file, 'rb'), 'text/plain')
+            }
+        )
+        post_headers={
+            'Content-Type': multipart_data.content_type,
+            'X-OBSERVATORY-AUTH': self._token
+        }
+        response = requests.post(url, data=multipart_data, headers=post_headers, verify=False)
+        if response.status_code in error_keys:
+            raise click.ClickException(errors[response.status_code])
+        else:
+            formatted_json = json.dumps(response.json(), indent=4)
+            colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
+            click.echo(colorful_json)
 
 
 
-    def is_csv(self,infile):
-        csv_fileh = open(infile, 'rb')
-        try:
-            dialect = csv.Sniffer().sniff(csv_fileh.read(1024))
-            # Perform various checks on the dialect (e.g., lineseparator,
-            # delimiter) to make sure it's sane
-
-            # Don't forget to reset the read position back to the start of
-            # the file before reading any entries.
-        except csv.Error:
-            # File appears not to be in CSV format; move along
-            return False
-        return True
 
 
 

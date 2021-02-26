@@ -23,12 +23,12 @@ def healthcheck():
 
 
 @main.command()
-def resetsessions(form, apikey):
+def resetsessions():
     """
     Delete all data charging events.
     Initialize default admin account.
     """
-    pass
+    user_instance.resetsessions()
 
 
 @main.command()

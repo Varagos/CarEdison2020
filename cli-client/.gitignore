@@ -1,5 +1,5 @@
 #Project testing
-SampleCSVFile_2kb.csv
+*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
