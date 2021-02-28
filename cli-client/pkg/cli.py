@@ -19,7 +19,10 @@ def main():
 @main.command()
 def healthcheck():
     """Confirm user and database connectivity."""
-    user_instance.healthcheck()
+    if user_instance.healthcheck():
+        click.echo("Database connection confirmed")
+    else:
+        click.echo("Database connection not established")
 
 
 @main.command()
@@ -28,7 +31,10 @@ def resetsessions():
     Delete all data charging events.
     Initialize default admin account.
     """
-    user_instance.resetsessions()
+    if user_instance.resetsessions():
+        click.echo("Sessions have been reset")
+    else:
+        click.echo("Sessions reset has failed")
 
 
 @main.command()

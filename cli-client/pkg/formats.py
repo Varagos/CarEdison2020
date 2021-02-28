@@ -1,13 +1,19 @@
-import click
-import os
-import requests
-from urllib3 import disable_warnings, exceptions
-import json
-from pygments import highlight, lexers, formatters
-from io import StringIO
+# Standard Library
 from csv import reader
+import io
+from io import StringIO
+from itertools import islice
+import json
+import os
+from urllib3 import disable_warnings, exceptions
+
+# 3rd Party Libraries
+import click
 import pandas
-from requests_toolbelt.multipart.encoder import MultipartEncoder
+from pygments import highlight, lexers, formatters
+import requests
+from requests_toolbelt.multipart import encoder
+
 
 
 
@@ -48,10 +54,19 @@ class User:
         return value
 
 
+
     def healthcheck(self):
         url = f"{self.base_url}/admin/healthcheck"
         #print(url)
-        self.useCase_get(url)
+        #self.useCase_get(url)
+        res = requests.get(url, verify = False)
+        st_code = res.status_code
+        if st_code in error_keys:
+            raise click.ClickException(errors[st_code])
+        if res.json()["status"] == 'OK':
+            return True
+        else:
+            return False
 
 
     def resetsessions(self):
@@ -60,9 +75,10 @@ class User:
         st_code = res.status_code
         if st_code in error_keys:
             raise click.ClickException(errors[st_code])
-        formatted_json = json.dumps(res.json(), indent=4)
-        colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
-        click.echo(colorful_json)
+        if res.json()["status"] == 'OK':
+            return True
+        else:
+            return False
 
     def login_post(self, usern, passw):
         url = 'https://localhost:8765/evcharge/api/login'
@@ -135,17 +151,10 @@ class User:
             colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
             click.echo(colorful_json)
         elif form == 'csv':
-            pandas.options.display.width = 0
+            #pandas.options.display.width = 0
             str_buffer = StringIO(r.text)
             df = pandas.read_csv(str_buffer)
             print(df)
-            """
-            str_buffer.seek(0)
-            csv_reader = reader(str_buffer, delimiter=',')
-            for row in csv_reader:
-                #print('\t'.join(row).expandtabs(2))
-                print('\t'.join(row))
-            """
         else:
             click.echo('Unsupported format')
             raise click.Abort
@@ -159,6 +168,14 @@ class User:
             click.echo('Not currently logged in')
             raise click.Abort
         return token
+
+    def print_status(self, response):
+        if response.status_code in error_keys:
+            raise click.ClickException(errors[response.status_code])
+        else:
+            formatted_json = json.dumps(response.json(), indent=4)
+            colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
+            click.echo(colorful_json)
 
 
 
@@ -219,31 +236,45 @@ class Admin(User):
             click.echo(colorful_json)
 
 
+
     def sessionsupd_post(self):
         input_file = self.params['source']
-        click.echo(input_file)
-        #click.echo(self.is_csv(input_file))
         url = f'{self.base_url}/admin/system/sessionsupd'
-        multipart_data = MultipartEncoder(
-            fields={
-                'file': ('file.csv', open(input_file, 'rb'), 'text/plain')
-            }
-        )
         post_headers={
-            'Content-Type': multipart_data.content_type,
             'X-OBSERVATORY-AUTH': self._token
         }
-        response = requests.post(url, data=multipart_data, headers=post_headers, verify=False)
-        if response.status_code in error_keys:
-            raise click.ClickException(errors[response.status_code])
-        else:
-            formatted_json = json.dumps(response.json(), indent=4)
-            colorful_json = highlight(formatted_json,lexers.JsonLexer(), formatters.TerminalFormatter())
-            click.echo(colorful_json)
+
+        with open(input_file, 'rb') as f:
+            response = requests.post(url, files={'file': f}, headers=post_headers, verify=False)
+        self.print_status(response)
+
+
+        with open(input_file, 'rb') as file_obj:
+            csv_headers = next(file_obj)
+            with click.progressbar(length = self.file_len(input_file)) as bar:
+                for file_chunk, rows in self.file_chunks(file_obj, csv_headers):
+                    b = io.BytesIO(file_chunk)
+                    response = requests.post(url, files={'file': b}, headers=post_headers, verify=False)
+                    if response.status_code in error_keys:
+                        raise click.ClickException("Check csv file format-must include start,finish,energy,point_id,vehicle_id,payment_id,pricing_id")
+                    bar.update(rows)
 
 
 
+    def file_chunks(self, file_object, header, chunk_size=10):
+        while True:
+            data = list(islice(file_object, chunk_size))
+            if not data:
+                break
+            final_list = [header] + data
+            yield b"".join(final_list), len(data)
 
+
+    def file_len(self, file_name):
+        with open(file_name, 'r') as f:
+            for i, l in enumerate(f):
+                pass
+            return i            #headers excluded
 
 
 if __name__=='__main__':
