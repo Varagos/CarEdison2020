@@ -12,6 +12,7 @@ const fs=require('fs').promises;
 router.use(admin_auth);
 router.use(formidable());
 router.post('/',async (req,res) => {
+    req.setTimeout(180*1000);
     //open and read uploaded file
     const content=await fs.readFile(req.files.file.path,{encoding: 'utf-8'});
     //parse csv data to array 
