@@ -11,3 +11,8 @@ Use of virtual_env is recommended.
  `python3 -m pip3 install -r requirements.txt`   
 - Execute install.sh  
 
+For some basic unit-testing   
+- Result and output of failed tests  
+`pytest -rx pkg/test_cli.py`  
+- Show captured output of passed tests  
+`pytest -rP pkg/test_cli.py`  
