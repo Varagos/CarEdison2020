@@ -1,0 +1,80 @@
+/*
+.basic-div{
+
+    background-image: url('../images/Grey-bg.jpg');
+    height: 1080px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+*/
+p {
+  margin: 16px 0;
+}
+
+.basic-div {
+    background-image: url('../images/grey_charging.jpeg');
+    height:100vh;
+    overflow:auto;
+    padding-top: 5%;
+}
+.form-signup {
+    width: 100%;
+    max-width: 500px;
+    padding: 50px 50px 25px 50px;
+    margin: auto;
+    border-style: solid;
+    border-width: bold;
+    border-color: #5eaaa8;
+    background-color: white;
+    border-radius: 4%;
+
+  }
+
+.cred-div {
+  text-align: left;
+  margin:10px;
+}
+.cred-div .bottom {
+  margin-bottom: 20px;
+}
+.cred-label {
+  line-height: 2;
+}
+.cred-div #username {
+  background: url(../images/avatar.png) no-repeat scroll 7px 9px;
+  padding-left:30px;
+}
+
+.cred-div #password {
+  background: url(../images/key.png) no-repeat scroll 7px 9px;
+  padding-left:30px;
+
+}
+
+.cred-div #confirm_password {
+  background: url(../images/key.png) no-repeat scroll 7px 9px;
+  padding-left:30px;
+}
+
+.line-center{
+    margin:0;padding:0 10px;
+    background:#fff;
+    display:inline-block;
+}
+h6{
+    margin: 16px 0;
+    text-align:center;
+    position:relative;
+    z-index:2;
+
+}
+h6:after{
+
+    content:"";
+    position:absolute;
+    top:50%;
+    left:0;
+    right:0;
+    border-top:solid 1px lightgray;
+    z-index:-1;
+}
