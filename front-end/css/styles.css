@@ -7,13 +7,12 @@
     background-size: cover;
 }
 */
-p {
-  margin: 16px 0;
-}
+
 
 .basic-div {
     background-image: url('../images/grey_charging.jpeg');
-    height:100vh;
+    height:105vh;
+
     overflow:auto;
     padding-top: 5%;
 }
@@ -56,25 +55,58 @@ p {
   padding-left:30px;
 }
 
-.line-center{
-    margin:0;padding:0 10px;
-    background:#fff;
-    display:inline-block;
+.homepage_main {
+  width: 100%;
+  height: 100vh;
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(170deg, #eeeeee 50%, #393e46 50%);
 }
-h6{
-    margin: 16px 0;
-    text-align:center;
-    position:relative;
-    z-index:2;
+
+.white-car {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  bottom: 20%;
+}
+
+.data-diagram {
+  width: 30%;
+  height: 400px;
+  position: absolute;
+  bottom: 50px;
+  right: 100px;
+}
+
+.but1 {
+  position: relative;
+  left: 40%;
+  background-color: #3affc7;
+
 
 }
-h6:after{
 
-    content:"";
-    position:absolute;
-    top:50%;
-    left:0;
-    right:0;
-    border-top:solid 1px lightgray;
-    z-index:-1;
+.but2 {
+  position: relative;
+  left: 45%;
+  top: 200px;
 }
+
+.but1:hover {
+  background-color: #c4ffed;
+
+}
+
+.script1 {
+  position: relative;
+  left: 40%
+}
+
+.script2 {
+  position: relative;
+  top: 100px;
+  left: 45%;
+}
+/*
+background: rgb(26,38,48);
+background: linear-gradient(0deg, rgba(26,38,48,1) 0%, rgba(44,60,74,1) 6%, rgba(81,97,115,1) 13%, rgba(0,26,38,1) 100%);
+*/
