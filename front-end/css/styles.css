@@ -9,20 +9,41 @@
 */
 
 
+html, body {
+  height: 100%;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.login-full {
+  background-image: url('../images/grey_charging.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  height: 100%;
+}
+
+.basic-div {
+  overflow:auto;
+  padding-top: 5%;
+  height: 100%;
+}
+/*
 .basic-div {
     background-image: url('../images/grey_charging.jpeg');
-    height:105vh;
-
+    background-repeat: no-repeat;
+    background-size: 100% auto;
     overflow:auto;
     padding-top: 5%;
+    height: 100%;
 }
+*/
+
 .form-signup {
     width: 100%;
     max-width: 500px;
     padding: 50px 50px 25px 50px;
     margin: auto;
     border-style: solid;
-    border-width: bold;
+    border-width: medium;
     border-color: #5eaaa8;
     background-color: white;
     border-radius: 4%;
@@ -50,28 +71,34 @@
 
 }
 
-.cred-div #confirm_password {
-  background: url(../images/key.png) no-repeat scroll 7px 9px;
-  padding-left:30px;
-}
 
-.homepage_main {
+
+
+/* Home page */
+
+.homepage-main {
   width: 100%;
   height: 100vh;
   background-color: #eeeeee;
+  /*
   background-image: -webkit-linear-gradient(170deg, #eeeeee 50%, #393e46 50%);
+  */
+  z-index: -1;
 }
 
+
+
+
 .white-car {
-  width: 100%;
-  height: 600px;
-  position: relative;
-  bottom: 20%;
+  width: 50%;
+  height: auto;
+  position: absolute;
+  top: 100px ;
 }
 
 .data-diagram {
   width: 30%;
-  height: 400px;
+  height: auto;
   position: absolute;
   bottom: 50px;
   right: 100px;
@@ -97,16 +124,254 @@
 }
 
 .script1 {
+  display: inline-block;
   position: relative;
   left: 40%
 }
 
 .script2 {
+  display: inline-block;
   position: relative;
   top: 100px;
   left: 45%;
+}
+
+
+
+
+/* Payment file */
+
+.payment-main-div {
+  background: #393e46;
+  color:#eeeeee;
+  height:100vh;
+}
+.payment-inside-div {
+  margin-left: auto;
+  margin-right:auto;
+  height:100vh;
+  background: #393e46;
+}
+
+
+
+/* CONTAINERS */
+
+.container {max-width: 850px; width: 100%; margin: 0 auto;}
+.four { width: 32.26%; max-width: 32.26%;}
+
+
+/* COLUMNS */
+
+.col {
+  display: block;
+  float:left;
+  margin: 1% 0 1% 1.6%;
+}
+
+.col:first-of-type { margin-left: 0; }
+
+/* CLEARFIX */
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+/* FORM */
+
+.form .plan input, .form .payment-plan input, .form .payment-type input{
+	display: none;
+}
+
+.cf h2 {
+  font-weight: lighter;
+  font-size: 2rem;
+}
+.form label{
+	position: relative;
+	color: #fff;
+	background-color: #222831;
+	font-size: 26px;
+	text-align: center;
+	height: 150px;
+	line-height: 150px;
+	display: block;
+	cursor: pointer;
+	border: 3px solid transparent;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form .plan input:checked + label, .form .payment-plan input:checked + label, .form .payment-type input:checked + label{
+	border: 3px solid #00adb5;
+	background-color: #2fcc71;
+}
+
+/*
+.form .plan input:checked + label:after, form .payment-plan input:checked + label:after, .form .payment-type input:checked + label:after{
+	content: "\2713";
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100%;
+	border: 2px solid #333;
+	background-color: #2fcc71;
+	z-index: 999;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+*/
+.submit{
+	padding: 15px 60px;
+	display: inline-block;
+	border: none;
+	margin: 20px 0;
+	background-color: #17b978;
+	color: #fff;
+	border: 2px solid #333;
+	font-size: 18px;
+	-webkit-transition: transform 0.3s ease-in-out;
+	-o-transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
+}
+
+.submit:hover{
+	cursor: pointer;
 }
 /*
 background: rgb(26,38,48);
 background: linear-gradient(0deg, rgba(26,38,48,1) 0%, rgba(44,60,74,1) 6%, rgba(81,97,115,1) 13%, rgba(0,26,38,1) 100%);
 */
+
+/******************** Charging ************/
+/*
+.charging-main {
+  background: url(../images/grey_charging_hologram.jpg);
+  background-size: 100% auto;
+}
+*/
+.charging-navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.charging-main {
+  background-color: #393e46;
+  magin:0;
+  padding: 0;
+  width:100%;
+  height:80%;
+  position: relative;
+}
+
+.div-left{
+  magin:0;
+  padding: 0;
+  width:10%;
+  height:20%;
+  position: absolute;
+  top:20%;
+  left:5%;
+}
+.div-left h4 {
+  font-weight:normal;
+  margin-top: 20%;
+}
+
+
+
+.stop-btn {
+  position: absolute;
+  top:20%;
+  right:10%;
+  width:13%;
+  height: 6%
+}
+
+.bat-percentage{
+  position: absolute;
+  left:51%;
+  top:42%;
+  font-size: 3vw;
+}
+
+.charging-car-img {
+  width:60%;
+  height: auto;
+    position: absolute;
+    bottom: 5%;
+    left: 20%;
+    top:auto;
+}
+
+.charging-footer {
+  magin:0;
+  padding: 0;
+  width:100%;
+  height:20%;
+  position: relative;
+  background-color: #eeeeee;
+}
+
+/***********************Progress bar**************/
+.battery {
+  padding: 10px 10px;
+  width: 370px;
+  border: solid thick #00163b;
+  position: absolute;
+  left:45%;
+  top:50%;
+  transform:translate(0,-50%);
+
+}
+/**
+blue
+#00163b
+light blue
+#00dcf2
+red
+#e92023
+*/
+.battery:after {
+  content: " ";
+  top: 30px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: #FFF;
+}
+
+.bar {
+  cursor: pointer;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, .1);
+  padding: 14px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+.bar.active {
+  background: #00dcf2;
+}
+
+.current-session {
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}

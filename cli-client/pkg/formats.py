@@ -12,7 +12,6 @@ import click
 import pandas
 from pygments import highlight, lexers, formatters
 import requests
-from requests_toolbelt.multipart import encoder
 
 
 
@@ -240,30 +239,38 @@ class Admin(User):
     def sessionsupd_post(self):
         input_file = self.params['source']
         url = f'{self.base_url}/admin/system/sessionsupd'
-        post_headers={
+        post_hdrs={
             'X-OBSERVATORY-AUTH': self._token
         }
 
         with open(input_file, 'rb') as f:
-            response = requests.post(url, files={'file': f}, headers=post_headers, verify=False)
+            response = requests.post(url, files={'file': f}, headers=post_hdrs, verify=False)
         self.print_status(response)
 
 
         with open(input_file, 'rb') as file_obj:
             csv_headers = next(file_obj)
+            sessions_in_file = 0
+            sessions_imported = 0
+            click.echo("File uploading...")
             with click.progressbar(length = self.file_len(input_file)) as bar:
                 for file_chunk, rows in self.file_chunks(file_obj, csv_headers):
                     b = io.BytesIO(file_chunk)
-                    response = requests.post(url, files={'file': b}, headers=post_headers, verify=False)
-                    if response.status_code in error_keys:
+                    res = requests.post(url, files={'file': b}, headers=post_hdrs, verify=False)
+                    if res.status_code in error_keys:
                         raise click.ClickException("Check csv file format-must include start,finish,energy,point_id,vehicle_id,payment_id,pricing_id")
+                    else:
+                        response = res.headers
+                        print(response)
+
                     bar.update(rows)
+        click.echo("File uploaded")
 
 
 
-    def file_chunks(self, file_object, header, chunk_size=10):
+    def file_chunks(self, file_object, header, rows_chunk=100):
         while True:
-            data = list(islice(file_object, chunk_size))
+            data = list(islice(file_object, rows_chunk))
             if not data:
                 break
             final_list = [header] + data
