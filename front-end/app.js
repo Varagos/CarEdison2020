@@ -545,7 +545,19 @@ app.get('/pricing', (req, res) => {
     res.render('pricing')
 })
 
+var fs = require('fs');
+
+var privateKey = fs.readFileSync('sslcert/server.key', 'utf-8');
+var certificate = fs.readFileSync('sslcert/server.cer', 'utf-8');
+var credentials = {key: privateKey, cert: certificate};
+
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(5000);
+
+/*
 
 app.listen(PORT, () => {
     console.log(`WebApp listening at http://localhost:${PORT}...`);
 });
+
+*/
