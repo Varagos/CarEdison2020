@@ -545,13 +545,17 @@ app.get('/pricing', (req, res) => {
     res.render('pricing')
 })
 
-var fs = require('fs');
 
+var fs = require('fs');
+var http = require('http');
 var privateKey = fs.readFileSync('sslcert/server.key', 'utf-8');
 var certificate = fs.readFileSync('sslcert/server.cer', 'utf-8');
 var credentials = {key: privateKey, cert: certificate};
 
+var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(8080);
 httpsServer.listen(5000);
 
 /*
