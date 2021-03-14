@@ -314,7 +314,7 @@ background: linear-gradient(0deg, rgba(26,38,48,1) 0%, rgba(44,60,74,1) 6%, rgba
 /***********************Progress bar**************/
 .battery {
   padding: 10px 10px;
-  width: 370px;
+  width: 390px;
   border: solid thick #00163b;
   position: absolute;
   left:45%;
