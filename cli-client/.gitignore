@@ -1,5 +1,9 @@
+#Project testing
+*.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
+pkg/__pycache__/
 *.py[cod]
 *$py.class
 

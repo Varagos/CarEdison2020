@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <title>CarEdison Charging</title>
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="charging-body">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark charging-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="images/greenCE.png" style="width:35px; vertical-align:middle" alt="logo">CarEdison</a>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      </div>
+    </div>
+  </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Charging Complete!</h5>
+        <!--
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        -->
+      </div>
+      <div class="modal-body">
+        <p>Please Confirm Payment To Proceed</p>
+      </div>
+      <div class="modal-footer">
+        <a href="/homepage">
+          <button type="button" class="btn btn-primary pay-btn">Pay </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="charging-main">
+    <div class="div-left">
+      <h1 class="Type-charge"><%= description %></h1>
+      <h4 class="Time-rem-txt">Time Remaining</h4>
+      <h1 class="Time-rem">1 hour</h1>
+    </div>
+    <button type="button" class="btn btn-outline-danger stop-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Stop Charging</button>
+    <p class="bat-percentage"> %</p>
+    <img src="images/trans_charg_car.png" class="charging-car-img" alt="car charging hologram">
+  </div>
+  <div class="charging-footer">
+        <!-- Start project HTML -->
+        <div class='battery'>
+          <!--
+           "data-power" can be set to any value between 0 and 100,
+           Additional bars can be added too. But you will need
+           to resize the battery div.
+          -->
+          <div class='bar' data-power='10'></div>
+          <div class='bar' data-power='20'></div>
+          <div class='bar' data-power='30'></div>
+          <div class='bar' data-power='40'></div>
+          <div class='bar' data-power='50'></div>
+          <div class='bar' data-power='60'></div>
+          <div class='bar' data-power='70'></div>
+          <div class='bar' data-power='80'></div>
+          <div class='bar' data-power='90'></div>
+          <div class='bar' data-power='100'></div>
+        </div>
+        <!-- End Project HTML -->
+        <div class="current-session">
+          <h4>Current Session</h4>
+          <p class ="cur-session">$$ 1 euro</p>
+        </div>
+  </div>
+
+  <!-- partial -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <!-- progress bar js -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+  <script src="/js/lib/helpers.js"></script>
+  <script src="/js/charging.js" one=<%= total_minutes %> two=<%=battery_percentage[0]%> ></script>
+
+</body>
+
+</html>

@@ -1,0 +1,442 @@
+
+
+/*
+Some global changes
+*/
+.container-fluid .navbar-brand{
+  cursor:default;
+}
+
+.navbar {
+  position:fixed;
+width: 100%;
+z-index: 2;
+}
+
+html, body {
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+/********* Login page *********/
+.login-body {
+  background-image: url('../images/grey_charging.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  overflow: hidden;
+}
+
+.basic-div {
+  padding-top: 5%;
+  height: 100%;
+}
+
+
+.form-signup {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px 50px 15px 50px;
+    margin: 40px auto;
+    border-style: solid;
+    border-width: medium;
+    border-color: #5eaaa8;
+    background-color: white;
+    border-radius: 4%;
+  }
+
+.cred-div {
+  text-align: left;
+  margin:10px;
+}
+.cred-div .bottom {
+  margin-bottom: 20px;
+}
+.cred-label {
+  line-height: 2;
+}
+.cred-div #username {
+  background: url(../images/avatar.png) no-repeat scroll 7px 9px;
+  padding-left:30px;
+}
+
+.cred-div #password {
+  background: url(../images/key.png) no-repeat scroll 7px 9px;
+  padding-left:30px;
+
+}
+
+.form-signup .btn {
+  margin-top: 20px;
+}
+
+
+/* Home page */
+
+.homepage-main {
+  width: 100%;
+  height: 100vh;
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(170deg, #eeeeee 50%, #393e46 50%);
+  z-index: -1;
+}
+
+.row {
+  height:100%;
+}
+.rel-col {
+  position:relative;
+}
+
+
+.white-car {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 10%;
+}
+
+.data-diagram {
+  width: 60%;
+  height: auto;
+  position: absolute;
+  bottom: 5%;
+  left: 20%;
+}
+
+.but1 {
+  position: absolute;
+  background-color: #3affc7;
+  left: 10%;
+  top: 77%;
+}
+
+.but2 {
+  position: relative;
+  left: 30%;
+  top: 25%;
+}
+
+.but1:hover {
+  background-color: #c4ffed;
+}
+
+.script1 {
+  display: inline-block;
+  position: absolute;
+  top: 70%;
+  left: 10%;
+}
+
+.script2 {
+  display: inline-block;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+}
+
+
+.logout-btn {
+  float:right;
+}
+
+
+/******** Payment file ********/
+
+
+.payment-body {
+  background: #393e46;
+  color: #eeeeee;
+}
+
+
+.payment-inside-div {
+  margin:0 auto;
+  padding-top: 5%;
+  width: 40%;
+  height:100%;
+  background: #393e46;
+}
+
+.rotate20 {
+  transform: rotate(-20deg);
+}
+
+.cf {
+  overflow: auto;
+  
+}
+
+.col {
+  width: 31.5%;
+  max-width: 31.5%;
+  float:left;
+  margin: 1% 0 1% 1.6%;
+
+}
+.col:first-of-type { margin-left: 1%; }
+
+.form .plan input, .form .payment-plan input{
+	display: none;
+}
+
+.form label{
+	color: #eeeeee;
+	background-color: #222831;
+	font-size: 26px;
+	text-align: center;
+	height: 100%;
+	line-height: 150px;
+	display: block;
+	cursor: pointer;
+}
+
+.form .plan input:checked + label, .form .payment-plan input:checked + label{
+	border: 3px solid #00adb5;
+}
+
+.payment-form {
+  position: relative;
+  height: 85%;
+}
+
+.d-flex.p-2 {
+  margin: 10px 0;
+}
+
+.prev-btn-div {
+  position: relative;
+  overflow: auto;
+  height: 100px;
+}
+.prev-btn {
+  position: absolute;
+  left: 5.7px;
+  bottom: 0%;
+  
+}
+input[readonly]{
+  background-color:transparent;
+  border: 0;
+  font-size: 1em;
+}
+.submit{
+	padding: 15px 60px;
+	border: none;
+	margin: 20px 0 0 auto;
+	background-color: #17b978;
+	color: #eeeeee;
+	border: 2px solid #333;
+	font-size: 18px;
+  position: absolute;
+  bottom: 0%;
+  right:0%;
+   margin: 10 0 20 auto;
+}
+
+.submit:hover{
+	cursor: pointer;
+  background-color: green;
+}
+
+
+/*  login-grey bg
+background: rgb(26,38,48);
+background: linear-gradient(0deg, rgba(26,38,48,1) 0%, rgba(44,60,74,1) 6%, rgba(81,97,115,1) 13%, rgba(0,26,38,1) 100%);
+*/
+
+
+
+/******************** Charging ************/
+
+.charging-navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.charging-main {
+  background-color: #393e46;
+  margin:0;
+  padding: 0;
+  width:100%;
+  height:80%;
+  position: relative;
+}
+
+.div-left{
+  margin:0;
+  padding: 0;
+  width:15%;
+  height:20%;
+  position: absolute;
+  top:20%;
+  left:5%;
+}
+
+.div-left h4 {
+  font-weight:normal;
+  margin-top: 20%;
+}
+
+.stop-btn {
+  position: absolute;
+  top:20%;
+  right:10%;
+  width:13%;
+  height: 6%
+}
+
+.bat-percentage{
+  position: absolute;
+  left:51%;
+  top:42%;
+  font-size: 3vw;
+}
+
+.charging-car-img {
+  width:60%;
+  height: auto;
+    position: absolute;
+    bottom: 5%;
+    left: 20%;
+    top:auto;
+}
+
+.charging-footer {
+  margin:0;
+  padding: 0;
+  width:100%;
+  height:20%;
+  position: relative;
+  background-color: #eeeeee;
+}
+
+/***********************Progress bar**************/
+.battery {
+  padding: 10px 10px;
+  width: 370px;
+  border: solid thick #00163b;
+  position: absolute;
+  left:45%;
+  top:50%;
+  transform:translate(0,-50%);
+
+}
+/*
+dark blue
+#00163b
+light blue
+#00dcf2
+red
+#e92023
+*/
+.battery:after {
+  content: " ";
+  top: 30px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: #FFF;
+}
+
+.bar {
+  cursor: pointer;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, .1);
+  padding: 14px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+.bar.active {
+  background: #00dcf2;
+}
+
+.current-session {
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}
+
+
+/*** stations ****/
+
+.station-body {
+  height: 100%;
+background: rgb(26,38,48);
+background: linear-gradient(0deg, rgba(26,38,48,1) 0%, rgba(44,60,74,1) 6%, rgba(81,97,115,1) 13%, rgba(0,26,38,1) 100%);
+}
+
+.station-body .container-fluid{
+  text-align: center;
+  height: 100%;
+}
+
+.station-body iframe {
+  margin-top: 80px;
+  width: 80%;
+  height: 90%;
+}
+
+
+
+
+
+/***** Diagram Selection *****/
+
+.diagram-select-border {
+  border-style: solid;
+  width: 100%;
+  padding: 20px 10px;
+  border-radius: 2%;
+  background-color: #1e1e2e;
+  border-color: #03506f;
+}
+
+
+.diagram-selec-body {
+  font-family: 'Poppins', sans-serif;
+  background-image: url(/images/world-bg.jpg);
+  background-size: 100% auto;
+  color: #eeeeee;
+}
+
+.diagram-inside-div {
+  font-weight: 200;
+  margin:0 auto;
+  padding-top: 5%;
+  width: 40%;
+  height:100%;
+}
+.diagram-inside-div h2 {
+  font-weight: 400;
+}
+
+.hide-input-div {
+  display: none;
+}
+/*
+
+  background: #393e46;
+  */
+
+
+
+  /***************** Pricing *********/
+
+  .pricing-container {
+    padding-top: 60px;
+  }
+  
+  
+  .pricing-container .pricing-header {
+    color:white;
+    padding-bottom: 50px;
+  }
+  .pricing-container h5 {
+    color:white;
+    font-weight: 300;
+  }
