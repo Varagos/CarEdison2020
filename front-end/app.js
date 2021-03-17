@@ -555,8 +555,10 @@ var credentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(8080);
-httpsServer.listen(5000);
+httpServer.listen(3000);
+httpsServer.listen(PORT, () => {
+    console.log(`WebApp listening at http://localhost:${PORT}...`);
+});
 
 /*
 
